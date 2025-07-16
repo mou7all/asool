@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title data-i18n="pageTitle">سياسات تطبيق Asool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* تعريف الألوان الأساسية لـ Tailwind JIT - مستوحاة من الصورة */
+        :root {
+            --bg-light-blue: #e4eef5; /* خلفية زرقاء فاتحة جداً من الصورة */
+            --text-dark: #334155; /* لون نص داكن مستوحى من لون شعار Asool */
+            --accent-red: #e53e3e; /* لون أحمر للخط السفلي والعناوين الرئيسية */
+        }
+        
+        /* تنسيقات إضافية لخطوط تحت العناوين (accent-underline) */
+        .accent-underline {
+            position: relative;
+            padding-bottom: 10px; /* مسافة للخط السفلي */
+        }
+        .accent-underline::after {
+            content: '';
+            display: block;
+            width: 80px; /* عرض الخط السفلي */
+            height: 4px;
+            background-color: var(--accent-red); /* لون الخط من متغيرات CSS */
+            position: absolute;
+            bottom: 0;
+            /* ستتحكم JS في right/left بناءً على اتجاه اللغة */
+            right: 0; /* الافتراضي لليمين (عربي) */
+            border-radius: 2px;
+        }
+
+        /* تنسيق خاص للعناوين الفرعية h2 لتكون مثل الكود الثاني */
+        .h2-style {
+            border-bottom: 2px solid var(--accent-red); /* خط سفلي بلون أحمر */
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        /* لتخصيص لون النقاط في القوائم */
+        ul li::marker {
+            color: var(--accent-red); /* لون النقاط من اللون الأحمر */
+        }
+
+        /* تنسيق زر تبديل اللغة */
+        .lang-switch {
+            position: relative;
+            width: 3.5rem; /* عرض الزر */
+            height: 1.75rem; /* ارتفاع الزر */
+            background-color: var(--accent-red); /* خلفية حمراء ثابتة */
+            border-radius: 9999px; /* شكل بيضاوي */
+            cursor: pointer;
+            transition: transform 0.3s ease; /* لإضافة سلاسة في التحول */
+        }
+        .lang-switch::after {
+            content: '';
+            position: absolute;
+            top: 0.125rem; /* 2px من الأعلى (1.75rem - 1.5rem) / 2 = 0.125rem = 2px */
+            width: 1.5rem; /* عرض الدائرة */
+            height: 1.5rem; /* ارتفاع الدائرة */
+            background-color: white; /* لون الدائرة أبيض */
+            border-radius: 50%; /* دائري */
+            transition: transform 0.3s ease, left 0.3s ease, right 0.3s ease; /* إضافة left/right للانتقال السلس */
+        }
+        /* موضع الدائرة عند اللغة العربية */
+        .lang-switch[data-lang="ar"]::after {
+            right: 0.125rem; /* 2px من اليمين */
+            left: auto; /* تأكد من عدم تداخل left */
+        }
+        /* موضع الدائرة عند اللغة الإنجليزية */
+        .lang-switch[data-lang="en"]::after {
+            left: 0.125rem; /* 2px من اليسار */
+            right: auto; /* تأكد من عدم تداخل right */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-[var(--text-dark)] font-sans leading-relaxed">
+
+    <header class="bg-[var(--bg-light-blue)] p-5 text-center shadow-lg flex items-center justify-between px-6">
+        <img src="https://i.ibb.co/XxgyLLZ9/image-removebg-preview-10.png" alt="Asool Logo" class="h-24">
+        
+        <div class="flex items-center space-x-2 rtl:space-x-reverse">
+            <span class="text-sm font-medium text-[var(--text-dark)]" data-i18n="langENG">ENG</span>
+            <div id="lang-switch" class="lang-switch" data-lang="ar" onclick="toggleLanguage()"></div>
+            <span class="text-sm font-medium text-[var(--text-dark)]" data-i18n="langAR">عربــي</span>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6 md:p-8 bg-white rounded-xl shadow-xl mt-8 mb-8">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-[var(--text-dark)] mb-8 accent-underline" data-i18n="mainTitle">
+            سياسات تطبيق Asool
+        </h1>
+
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--text-dark)] h2-style" data-i18n="privacyPolicyTitle">
+            سياسة الخصوصية
+        </h2>
+        <ul class="list-disc pr-6 mb-6 text-lg" data-i18n-list="privacyList">
+            <li>نجمع معلومات الحساب، المستلم، والدفع والاستخدام فقط لتحسين الخدمة.</li>
+            <li>نستخدم البيانات لتنفيذ الطلبات، إرسال الإشعارات، والتواصل في حال وجود مشكلة.</li>
+            <li>نشارك المعلومات فقط مع شركات التوصيل ومزودي الدفع (Stripe) عند الحاجة.</li>
+            <li>نلتزم بحماية معلوماتك باتباع معايير أمان عالية.</li>
+            <li>يحق لك تعديل أو حذف بياناتك، وإلغاء حسابك متى شئت.</li>
+            <li>نستخدم Cookies لتحليل الأداء وتحسين التجربة.</li>
+        </ul>
+
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--text-dark)] h2-style" data-i18n="usagePolicyTitle">
+            سياسة الاستخدام
+        </h2>
+        <ul class="list-disc pr-6 mb-6 text-lg" data-i18n-list="usageList">
+            <li>الخدمة مخصصة للمغتربين لإرسال الهدايا والمأكولات داخل سوريا.</li>
+            <li>يجب أن يكون المستخدم بعمر 18 سنة على الأقل.</li>
+            <li>يتحمّل المستخدم مسؤولية دقة معلومات المستلم.</li>
+            <li>الدفع يتم فقط عبر Stripe من خارج سوريا، لا يُقبل الدفع داخل سوريا.</li>
+            <li>التوصيل يتم حسب المناطق والمدة المحددة، مع محاولتين للتواصل قبل اعتبار الطلب منفذًا.</li>
+            <li>يُمنع استخدام التطبيق لأي نشاط غير قانوني.</li>
+            <li>حقوق التصميم والمحتوى محفوظة ولا يجوز إعادة استخدامها.</li>
+        </ul>
+
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--text-dark)] h2-style" data-i18n="returnsPolicyTitle">
+            سياسة الاسترجاع والاستبدال
+        </h2>
+        <h3 class="text-xl md:text-2xl font-semibold text-[var(--text-dark)] mb-4 mt-8" data-i18n="returnsSubTitle">
+            الاسترجاع
+        </h3>
+        <ul class="list-disc pr-6 mb-6 text-lg" data-i18n-list="returnsList">
+            <li>لا يمكن استرجاع المبلغ بعد تنفيذ الطلب.</li>
+            <li>في حال وجود خطأ أو عدم تنفيذ الطلب، يمكن طلب الاسترجاع خلال 24 ساعة.</li>
+            <li>يتم الاسترداد خلال 5-10 أيام عبر حوالة بنكية.</li>
+        </ul>
+
+        <h3 class="text-xl md:text-2xl font-semibold text-[var(--text-dark)] mb-4 mt-8" data-i18n="exchangeSubTitle">
+            الاستبدال
+        </h3>
+        <ul class="list-disc pr-6 mb-6 text-lg" data-i18n-list="exchangeList">
+            <li>يمكن استبدال المنتج إذا كان خاطئًا أو متضررًا.</li>
+            <li>يجب التواصل خلال 24 ساعة مع تقديم صور للمشكلة.</li>
+            <li>لا يُسمح باستبدال الأطعمة أو المنتجات الموسمية أو المفتوحة.</li>
+        </ul>
+
+        <h3 class="text-xl md:text-2xl font-semibold text-[var(--text-dark)] mb-4 mt-8" data-i18n="howToSubmitTitle">
+            كيفية تقديم الطلب
+        </h3>
+        <div class="bg-[var(--bg-light-blue)] p-6 rounded-lg border border-blue-200 mt-8">
+            <p class="mb-4 font-bold text-[var(--text-dark)] text-lg" data-i18n="contactUsIntro">يرجى التواصل معنا عبر:</p>
+            <ul class="list-disc pl-6 text-lg" data-i18n-list="contactList">
+                <li><span data-i18n="emailContact">البريد الإلكتروني:</span> 
+                    <a href="mailto:ahmad@al3asaltravel.com" class="text-[var(--accent-red)] hover:text-[var(--text-dark)] font-bold transition duration-300">ahmad@al3asaltravel.com</a>
+                </li>
+                <li><span data-i18n="whatsappContact">الواتساب:</span> 
+                    <a href="https://wa.me/+963964442014" target="_blank" class="text-[var(--accent-red)] hover:text-[var(--text-dark)] font-bold transition duration-300">+963 964 442 014</a>
+                </li>
+                <li><span data-i18n="requiredInfo">المعلومات المطلوبة:</span> رقم الطلب، وصف المشكلة، الصور (إن وجدت)، بيانات الحساب البنكي (للاسترجاع).</li>
+            </ul>
+        </div>
+
+        <p class="text-center font-bold text-[var(--text-dark)] p-4 bg-[var(--bg-light-blue)] rounded-lg mt-8 shadow-sm" data-i18n="finalNote">
+            استخدامك لتطبيق Asool يعني موافقتك الكاملة على هذه السياسات.
+        </p>
+
+    </main>
+
+    <footer class="text-center p-6 bg-gray-200 text-gray-700 mt-10 text-sm" data-i18n="footerText">
+        &copy; 2025 Asool Gift Shop - جميع الحقوق محفوظة
+    </footer>
+
+    <script>
+        const translations = {
+            ar: {
+                pageTitle: "سياسات تطبيق Asool",
+                langENG: "ENG",
+                langAR: "عربــي",
+                mainTitle: "سياسات تطبيق Asool",
+                privacyPolicyTitle: "سياسة الخصوصية",
+                privacyList: [
+                    "نجمع معلومات الحساب، المستلم، والدفع والاستخدام فقط لتحسين الخدمة.",
+                    "نستخدم البيانات لتنفيذ الطلبات، إرسال الإشعارات، والتواصل في حال وجود مشكلة.",
+                    "نشارك المعلومات فقط مع شركات التوصيل ومزودي الدفع (Stripe) عند الحاجة.",
+                    "نلتزم بحماية معلوماتك باتباع معايير أمان عالية.",
+                    "يحق لك تعديل أو حذف بياناتك، وإلغاء حسابك متى شئت.",
+                    "نستخدم Cookies لتحليل الأداء وتحسين التجربة."
+                ],
+                usagePolicyTitle: "سياسة الاستخدام",
+                usageList: [
+                    "الخدمة مخصصة للمغتربين لإرسال الهدايا والمأكولات داخل سوريا.",
+                    "يجب أن يكون المستخدم بعمر 18 سنة على الأقل.",
+                    "يتحمّل المستخدم مسؤولية دقة معلومات المستلم.",
+                    "الدفع يتم فقط عبر Stripe من خارج سوريا، لا يُقبل الدفع داخل سوريا.",
+                    "التوصيل يتم حسب المناطق والمدة المحددة، مع محاولتين للتواصل قبل اعتبار الطلب منفذًا.",
+                    "يُمنع استخدام التطبيق لأي نشاط غير قانوني.",
+                    "حقوق التصميم والمحتوى محفوظة ولا يجوز إعادة استخدامها."
+                ],
+                returnsPolicyTitle: "سياسة الاسترجاع والاستبدال",
+                returnsSubTitle: "الاسترجاع",
+                returnsList: [
+                    "لا يمكن استرجاع المبلغ بعد تنفيذ الطلب.",
+                    "في حال وجود خطأ أو عدم تنفيذ الطلب، يمكن طلب الاسترجاع خلال 24 ساعة.",
+                    "يتم الاسترداد خلال 5-10 أيام عبر حوالة بنكية."
+                ],
+                exchangeSubTitle: "الاستبدال",
+                exchangeList: [
+                    "يمكن استبدال المنتج إذا كان خاطئًا أو متضررًا.",
+                    "يجب التواصل خلال 24 ساعة مع تقديم صور للمشكلة.",
+                    "لا يُسمح باستبدال الأطعمة أو المنتجات الموسمية أو المفتوحة."
+                ],
+                howToSubmitTitle: "كيفية تقديم الطلب",
+                contactUsIntro: "يرجى التواصل معنا عبر:",
+                emailContact: "البريد الإلكتروني:",
+                whatsappContact: "الواتساب:",
+                requiredInfo: "المعلومات المطلوبة:",
+                finalNote: "استخدامك لتطبيق Asool يعني موافقتك الكاملة على هذه السياسات.",
+                footerText: "&copy; 2025 Asool Gift Shop - جميع الحقوق محفوظة"
+            },
+            en: {
+                pageTitle: "Asool App Policies",
+                langENG: "ENG",
+                langAR: "Arabic",
+                mainTitle: "Asool App Policies",
+                privacyPolicyTitle: "Privacy Policy",
+                privacyList: [
+                    "We collect account, recipient, payment, and usage information solely to improve our service.",
+                    "We use data to fulfill orders, send notifications, and communicate in case of an issue.",
+                    "We share information only with delivery companies and payment providers (Stripe) when necessary.",
+                    "We are committed to protecting your information by following high security standards.",
+                    "You have the right to modify or delete your data, and to cancel your account at any time.",
+                    "We use Cookies to analyze performance and improve the user experience."
+                ],
+                usagePolicyTitle: "Usage Policy",
+                usageList: [
+                    "The service is intended for expatriates to send gifts and food within Syria.",
+                    "The user must be at least 18 years old.",
+                    "The user is responsible for the accuracy of recipient information.",
+                    "Payment is only made via Stripe from outside Syria; cash payment inside Syria is not accepted.",
+                    "Delivery is based on specified areas and duration, with two contact attempts before the order is considered fulfilled.",
+                    "It is prohibited to use the app for any illegal activity.",
+                    "Design and content rights are reserved and may not be reused."
+                ],
+                returnsPolicyTitle: "Return and Exchange Policy",
+                returnsSubTitle: "Returns",
+                returnsList: [
+                    "No refund can be issued after the order has been fulfilled.",
+                    "In case of an error or unfulfilled order, a refund can be requested within 24 hours.",
+                    "Refunds are processed within 5-10 days via bank transfer."
+                ],
+                exchangeSubTitle: "Exchanges",
+                exchangeList: [
+                    "Products can be exchanged if they are incorrect or damaged.",
+                    "Contact must be made within 24 hours, providing photos of the issue.",
+                    "Food, seasonal products, or opened products are not eligible for exchange."
+                ],
+                howToSubmitTitle: "How to Submit a Request",
+                contactUsIntro: "Please contact us via:",
+                emailContact: "Email:",
+                whatsappContact: "WhatsApp:",
+                requiredInfo: "Required Information: Order number, problem description, photos (if any), bank account details (for refunds).",
+                finalNote: "Your use of the Asool app signifies your full agreement to these policies.",
+                footerText: "&copy; 2025 Asool Gift Shop - All rights reserved"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            const langSwitch = document.getElementById('lang-switch');
+            langSwitch.dataset.lang = lang;
+
+            // تحديث موضع الدائرة بناءً على اللغة
+            const switchCircle = langSwitch.querySelector('::after'); // لا يمكن الوصول لـ ::after مباشرة بالـ JS
+            // بدلاً من ذلك، سنستخدم CSS الديناميكي أو فئة
+            // الأفضل هو التحكم بها عبر CSS بناءً على data-lang كما فعلنا
+
+            // تحديث موضع الخط السفلي accent-underline
+            const accentUnderlines = document.querySelectorAll('.accent-underline');
+            accentUnderlines.forEach(underline => {
+                // إزالة الخصائص السابقة لضمان التطبيق الصحيح
+                underline.style.removeProperty('right');
+                underline.style.removeProperty('left');
+
+                if (lang === 'ar') {
+                    // للعربية، الخط السفلي على اليمين
+                    underline.style.right = '0';
+                } else {
+                    // للإنجليزية، الخط السفلي على اليسار
+                    underline.style.left = '0';
+                }
+            });
+
+            // تحديث النصوص
+            for (const key in translations[lang]) {
+                if (typeof translations[lang][key] === 'string') {
+                    document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => {
+                        el.innerHTML = translations[lang][key];
+                    });
+                } else if (Array.isArray(translations[lang][key])) {
+                    const ulElements = document.querySelectorAll(`[data-i18n-list="${key}"]`);
+                    ulElements.forEach((ul) => {
+                        ul.innerHTML = '';
+                        translations[lang][key].forEach(item => {
+                            const li = document.createElement('li');
+                            li.innerHTML = item;
+                            ul.appendChild(li);
+                        });
+                    });
+                }
+            }
+        }
+
+        function toggleLanguage() {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            setLanguage(newLang);
+            localStorage.setItem('lang', newLang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('lang') || 'ar';
+            setLanguage(savedLang);
+        });
+    </script>
+
+</body>
+</html>
